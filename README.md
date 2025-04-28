@@ -21,7 +21,7 @@ A pixelated rasterizer built to experiment with the creation of primitive 2D sha
 ## Examples
 
 ### Example 1: All Shapes without Gradient (Except line)
-![Example 1](imgs/example1.png)
+![Example 1](imgs/shapes.png)
 
 ### Example 2: All Shapes with Gradients (Except line)
-![Example 2](imgs/example2.png)
+![Example 2](imgs/gradient_shapes.png)
