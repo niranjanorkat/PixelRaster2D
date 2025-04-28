@@ -18,42 +18,16 @@ function drawTriangle(x1, y1, x2, y2, x3, y3, fill) {
     if (doesTriangleExceedBound) {
         console.error(`Triangle exceeds canvas bounds.`);
     }
+    const A = [x1 * canvas.cellSize, y1 * canvas.cellSize];
+    const B = [x2 * canvas.cellSize, y2 * canvas.cellSize];
+    const C = [x3 * canvas.cellSize, y3 * canvas.cellSize];
 
-    let minX = Math.min(x1, x2, x3);
-    let maxX = Math.max(x1, x2, x3);
-    let minY = Math.min(y1, y2, y3);
-    let maxY = Math.max(y1, y2, y3);
+    const minX = Math.min(x1, x2, x3);
+    const maxX = Math.max(x1, x2, x3);
+    const minY = Math.min(y1, y2, y3);
+    const maxY = Math.max(y1, y2, y3);
 
-    let A = [x1 * canvas.cellSize, y1 * canvas.cellSize];
-    let B = [x2 * canvas.cellSize, y2 * canvas.cellSize];
-    let C = [x3 * canvas.cellSize, y3 * canvas.cellSize];
+    const insideCheck = (P) => isPointInTriangle(P, A, B, C);
 
-    for (let i = minX; i <= maxX; i++) {
-        for (let j = minY; j <= maxY; j++) {
-            let coverage = 0;
-
-            for (let subX = 0; subX < canvas.aliasDim; subX++) {
-                for (let subY = 0; subY < canvas.aliasDim; subY++) {
-                    // Calculate supersampled point inside cell
-                    let P = [
-                        (i + (subX + 0.5) / canvas.aliasDim) * canvas.cellSize,
-                        (j + (subY + 0.5) / canvas.aliasDim) * canvas.cellSize
-                    ];
-
-                    if (isPointInTriangle(P, A, B, C)) {
-                        coverage += 1;
-                    }
-                }
-            }
-
-            coverage /= (canvas.aliasDim * canvas.aliasDim);
-
-            if (coverage == 0) continue;
-
-            let pixelFill = [...fill];
-            pixelFill[3] = pixelFill[3] * coverage;
-            canvas.fillPixel(i, j, pixelFill);
-        }
-    }
-    canvas.putImage();
+    antiAliasDraw(minX, maxX, minY, maxY, insideCheck, fill);
 }
