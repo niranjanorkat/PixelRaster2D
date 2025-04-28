@@ -12,7 +12,12 @@ function isPointInTriangle(P, A, B, C) {
     return (u >= 0) && (v >= 0) && (w >= 0);
 }
 
-function drawTriangle(x1, y1, x2, y2, x3, y3, canvas) {
+function drawTriangle(x1, y1, x2, y2, x3, y3, fill, canvas) {
+    let doesTriangleExceedBound = checkCoordinatesInBounds([[x1, y1], [x2, y2], [x3, y3]], canvas);
+    if (doesTriangleExceedBound) {
+        console.error(`Triangle exceeds canvas bounds. X coordinates must be between 0 and ${canvas.width}, Y coordinates must be between 0 and ${canvas.height}.`);
+    }
+
     minX = Math.min(x1, x2, x3);
     maxX = Math.max(x1, x2, x3);
     minY = Math.min(y1, y2, y3);
@@ -26,7 +31,7 @@ function drawTriangle(x1, y1, x2, y2, x3, y3, canvas) {
             let C = [x3, y3]
 
             if (isPointInTriangle(P, A, B, C)) {
-                canvas.buffer[i][j] = 255
+                canvas.fillPixel(i, j, fill)
             }
         }
     }
