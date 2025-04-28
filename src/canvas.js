@@ -4,16 +4,15 @@ const WHITE = [255, 255, 255, 255]
 const BLACK = [0, 0, 0, 255]
 
 class Canvas {
-    constructor(width, height, cellSize, canvasId) {
+    constructor(width, height, cellSize, canvasId, aliasDim = 4) {
         this.width = width;
         this.height = height;
 
         this.cellSize = cellSize;
-        // Do a check if divisible
         this.totalCellWidth = this.width / this.cellSize;
         this.totalCellHeight = this.height / this.cellSize;
 
-        this.aliasDim = 4;
+        this.aliasDim = aliasDim;
         this.canvas = document.getElementById(canvasId);
         this.canvas.width = this.width;
         this.canvas.height = this.height;
