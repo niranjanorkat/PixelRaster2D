@@ -13,6 +13,7 @@ class Canvas {
         this.totalCellWidth = this.width / this.cellSize;
         this.totalCellHeight = this.height / this.cellSize;
 
+        this.aliasDim = 4;
         this.canvas = document.getElementById(canvasId);
         this.canvas.width = this.width;
         this.canvas.height = this.height;
