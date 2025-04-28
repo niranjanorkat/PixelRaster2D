@@ -38,3 +38,27 @@ function checkCoordinatesInBounds(coordinates) {
     }
     return false;
 }
+
+function isGradient(fill) {
+    if (!Array.isArray(fill)) {
+        console.error("Invalid fill: fill must be an array.");
+        return undefined;
+    }
+
+    if (fill.length === 4 && fill.every(v => typeof v === "number")) {
+        return false;
+    }
+
+    if (fill.length === 2 &&
+        Array.isArray(fill[0]) &&
+        Array.isArray(fill[1]) &&
+        fill[0].length === 4 &&
+        fill[1].length === 4 &&
+        fill[0].every(v => typeof v === "number") &&
+        fill[1].every(v => typeof v === "number")) {
+        return true;
+    }
+
+    console.error("Invalid fill: must be a [r,g,b,a] array or a [[r,g,b,a], [r,g,b,a]] array.");
+    return undefined;
+}
